@@ -4,4 +4,12 @@ html
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
-    block content
+    nav(style="display:flex; justify-content:space-between;")
+      h2 Members
+      ul(style="display:flex; list-style-type:none; gap:15px; padding: 0;")
+        button
+          a(href='/signin') Sign In
+        button
+          a(href='/signup') Sign Up
+    div
+      block content
