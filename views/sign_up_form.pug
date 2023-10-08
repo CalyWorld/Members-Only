@@ -1,0 +1,73 @@
+extends layout
+
+block content
+  style.
+    .sign-up-container {
+      width: 500px;
+      margin: 0 auto;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    input.form-control {
+      width: 95%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    button.btn.btn-primary {
+      width: 50%;
+      padding: 10px;
+      background-color: #0077cc;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    p {
+      margin-top: 10px;
+    }
+
+  .sign-up-container
+    h1 Sign Up
+    form(action="/user/signup" method="POST")
+      .form-group
+        label(for="firstName") First Name
+        input#firstName.form-control(type="text" name="firstName" placeholder="Enter your first name" required)
+      .form-group
+        label(for="lastName") Last Name
+        input#lastName.form-control(type="text" name="lastName" placeholder="Enter your last name" required)
+      .form-group
+        label(for="email") Email
+        input#email.form-control(type="email" name="email" placeholder="Enter your email" required)
+      .form-group
+        label(for="password") Password
+        input#password.form-control(type="password" name="password" placeholder="Enter your password" required)
+      .form-group
+        label(for="confirmPassword") Confirm Password
+        input#confirmPassword.form-control(type="password" name="confirmPassword" placeholder="Confirm your password" required)
+      .checkbox-group
+        label.form-check-label(for="isAdmin") Be an Admin ?
+        input#isAdmin.form-check-input(type="checkbox" name="isAdmin")
+      div(style="display:flex; justify-content:center; margin-top:15px; margin-bottom:15px;")
+        button.btn.btn-primary(type="submit") Sign Up
+    p Already have an account?
+      a(href="/user/signin") Sign In

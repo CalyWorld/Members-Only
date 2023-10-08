@@ -8,4 +8,4 @@ const UserMessageSchema = new Schema({
   createdBy: { type: Schema.Types.ObjectId, ref: "User" },
 });
 
-module.exports = mongoose.model("UserMessageSchema", UserMessageSchema);
+module.exports = mongoose.model("UserMessage", UserMessageSchema);
