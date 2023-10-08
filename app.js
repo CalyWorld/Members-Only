@@ -2,11 +2,16 @@ const createError = require("http-errors");
 const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
+const session = require("express-session");
+const passport = require("passport");
+const LocalStrategy = require("passport-local").Strategy;
 const logger = require("morgan");
 const mongoose = require("mongoose");
+const indexRouter = require("./routes/index");
+const signinRouter = require("./routes/signin");
+const signupRouter = require("./routes/signup");
 const userRouter = require("./routes/user");
 const app = express();
-
 mongoose.set("strictQuery", false);
 require("dotenv").config();
 const mongoDB = process.env.MONGODB_URI;
@@ -24,7 +29,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/", userRouter);
+app.use("/", indexRouter);
+app.use("/user/signin", signinRouter);
+app.use("/user/signup", signupRouter);
+app.use("/user", userRouter);
+
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
