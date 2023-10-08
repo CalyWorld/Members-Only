@@ -35,14 +35,14 @@ async function userCreate(
   index,
   first_Name,
   last_Name,
-  email,
+  username,
   password,
   isAdmin,
 ) {
   const userDetail = {
     firstName: first_Name,
     lastName: last_Name,
-    email: email,
+    username: username,
     password: password,
     isAdmin: isAdmin,
   };
@@ -52,7 +52,7 @@ async function userCreate(
   const user = new User(userDetail);
   await user.save();
   userHolder[index] = user;
-  console.log(`Added User: ${email}`);
+  console.log(`Added User: ${username}`);
 }
 
 async function userCreateMessage(index, title, text, timeStamp, createdBy) {
