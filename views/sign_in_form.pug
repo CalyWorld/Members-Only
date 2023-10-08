@@ -1,0 +1,56 @@
+extends layout
+
+block content
+  style.
+    .sign-in-container {
+      width: 500px;
+      margin: 0 auto;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    input.form-control {
+      width: 95%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    button.btn.btn-primary {
+
+      width: 50%;
+      padding: 10px;
+      background-color: #0077cc;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    p {
+      margin-top: 10px;
+    }
+  .sign-in-container
+    h1 Sign In
+    form(action="/signin" method="POST")
+      .form-group
+        label(for="username") Username
+        input#username.form-control(type="text" name="username" placeholder="Enter your username" required)
+      .form-group
+        label(for="password") Password
+        input#password.form-control(type="password" name="password" placeholder="Enter your password" required)
+      div(style="display:flex; justify-content:center;")
+        button.btn.btn-primary(type="submit") Sign In
+    p Don't have an account? 
+      a(href="/user/signup") Sign Up
