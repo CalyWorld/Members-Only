@@ -10,7 +10,11 @@ html
           a(href=`/user` style="color:white;") Members
         ul(style="display:flex; gap:15px; padding: 0;")
           button
-            a(href='/user/signout') Log out
+            a(href='/user/join') Join the Club 
+          button
+            a(href='/user/admin') Become an Admin
+          button
+            a(href='/user/logout') Log out
       div(style="display:flex; flex-direction:column; padding:10px;")
         block content
     else

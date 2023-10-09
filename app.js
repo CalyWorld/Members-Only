@@ -12,6 +12,7 @@ const User = require("./models/user");
 const indexRouter = require("./routes/index");
 const signinRouter = require("./routes/signin");
 const signupRouter = require("./routes/signup");
+const logoutRouter = require("./routes/logout");
 const userRouter = require("./routes/user");
 const app = express();
 mongoose.set("strictQuery", false);
@@ -71,6 +72,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/", indexRouter);
 app.use("/user/signin", signinRouter);
 app.use("/user/signup", signupRouter);
+app.use("/user/logout", logoutRouter);
 app.use("/user", userRouter);
 
 // catch 404 and forward to error handler
