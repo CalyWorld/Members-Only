@@ -51,19 +51,19 @@ block content
     form(action="" method="POST")
       .form-group
         label(for="firstName") First Name
-        input#firstName.form-control(type="text" name="firstName" placeholder="Enter your first name" required="true" value=(undefined === user ? "" : user.firstName))
+        input#firstName.form-control(type="text" name="firstName" placeholder="Enter your first name" required="true" value=)
       .form-group
         label(for="lastName") Last Name
-        input#lastName.form-control(type="text" name="lastName" placeholder="Enter your last name" required="true" value=(undefined === user ? "" : user.lastName))
+        input#lastName.form-control(type="text" name="lastName" placeholder="Enter your last name" required="true" value=)
       .form-group
         label(for="email") Email
-        input#email.form-control(type="email" name="username" placeholder="Enter your username" required="true" value=(undefined === user ? "" : user.username))
+        input#email.form-control(type="email" name="username" placeholder="Enter your username" required="true" value)
       .form-group
         label(for="password") Password
-        input#password.form-control(type="password" name="password" placeholder="Enter your password" required="true" value=(undefined === user ? "" : user.password))
+        input#password.form-control(type="password" name="password" placeholder="Enter your password" required="true" value)
       .form-group
         label(for="confirmPassword") Confirm Password
-        input#confirmPassword.form-control(type="password" name="confirmPassword" placeholder="Confirm your password" required="true" value=(undefined === user ? "" : user.password))
+        input#confirmPassword.form-control(type="password" name="confirmPassword" placeholder="Confirm your password" required="true" value=)
       div(style="display:flex; justify-content:center; margin-top:15px; margin-bottom:15px;")
         button.btn.btn-primary(type="submit") Sign Up
     p Already have an account?
