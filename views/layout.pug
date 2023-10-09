@@ -4,13 +4,23 @@ html
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
-    nav(style="display:flex; justify-content:space-between;")
-      h2
-        a(href='/' style="color:white;") Members
-      ul(style="display:flex; gap:15px; padding: 0;")
-        button
-          a(href='/user/signin') Sign In
-        button
-          a(href='/user/signup') Sign Up
-    div(style="display:flex; flex-direction:column; padding:10px;")
-      block content
+    if (user)
+      nav(style="display:flex; justify-content:space-between;")
+        h2
+          a(href=`/user` style="color:white;") Members
+        ul(style="display:flex; gap:15px; padding: 0;")
+          button
+            a(href='/user/signout') Log out
+      div(style="display:flex; flex-direction:column; padding:10px;")
+        block content
+    else
+      nav(style="display:flex; justify-content:space-between;")
+        h2
+          a(href='/' style="color:white;") Members
+        ul(style="display:flex; gap:15px; padding: 0;")
+          button
+            a(href='/user/signin') Sign In
+          button
+            a(href='/user/signup') Sign Up
+      div(style="display:flex; flex-direction:column; padding:10px;")
+        block content
