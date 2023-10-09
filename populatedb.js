@@ -37,17 +37,17 @@ async function userCreate(
   last_Name,
   username,
   password,
-  isAdmin,
+  status,
 ) {
   const userDetail = {
     firstName: first_Name,
     lastName: last_Name,
     username: username,
     password: password,
-    isAdmin: isAdmin,
+    status: status,
   };
 
-  if (isAdmin != false) userDetail.isAdmin = isAdmin;
+  if (status != false) userDetail.status = status;
 
   const user = new User(userDetail);
   await user.save();
@@ -76,7 +76,7 @@ async function createUser() {
     "Anizoba",
     "obinnaanizoba5@gmail.com",
     "Ob_Cz011",
-    true,
+    "None",
   );
 }
 

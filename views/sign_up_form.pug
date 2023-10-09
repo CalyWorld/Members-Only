@@ -48,25 +48,22 @@ block content
 
   .sign-up-container
     h1 Sign Up
-    form(action="/user/signup" method="POST")
+    form(action="" method="POST")
       .form-group
         label(for="firstName") First Name
-        input#firstName.form-control(type="text" name="firstName" placeholder="Enter your first name" required)
+        input#firstName.form-control(type="text" name="firstName" placeholder="Enter your first name" required="true" value=(undefined === user ? "" : user.firstName))
       .form-group
         label(for="lastName") Last Name
-        input#lastName.form-control(type="text" name="lastName" placeholder="Enter your last name" required)
+        input#lastName.form-control(type="text" name="lastName" placeholder="Enter your last name" required="true" value=(undefined === user ? "" : user.lastName))
       .form-group
         label(for="email") Email
-        input#email.form-control(type="email" name="email" placeholder="Enter your email" required)
+        input#email.form-control(type="email" name="username" placeholder="Enter your username" required="true" value=(undefined === user ? "" : user.username))
       .form-group
         label(for="password") Password
-        input#password.form-control(type="password" name="password" placeholder="Enter your password" required)
+        input#password.form-control(type="password" name="password" placeholder="Enter your password" required="true" value=(undefined === user ? "" : user.password))
       .form-group
         label(for="confirmPassword") Confirm Password
-        input#confirmPassword.form-control(type="password" name="confirmPassword" placeholder="Confirm your password" required)
-      .checkbox-group
-        label.form-check-label(for="isAdmin") Be an Admin ?
-        input#isAdmin.form-check-input(type="checkbox" name="isAdmin")
+        input#confirmPassword.form-control(type="password" name="confirmPassword" placeholder="Confirm your password" required="true" value=(undefined === user ? "" : user.password))
       div(style="display:flex; justify-content:center; margin-top:15px; margin-bottom:15px;")
         button.btn.btn-primary(type="submit") Sign Up
     p Already have an account?
