@@ -31,10 +31,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/", indexRouter);
-app.use("/user/signin", signinRouter);
-app.use("/user/signup", signupRouter);
-app.use("/user", userRouter);
+app.use(session({ secret: "cats", resave: false, saveUninitialized: true }));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(express.urlencoded({ extended: false }));
 
 passport.use(
   new LocalStrategy(async (username, password, done) => {
@@ -56,6 +56,7 @@ passport.use(
 );
 
 passport.serializeUser((user, done) => {
+  console.log(user);
   done(null, user.id);
 });
 passport.deserializeUser(async (id, done) => {
@@ -66,6 +67,11 @@ passport.deserializeUser(async (id, done) => {
     done(err);
   }
 });
+
+app.use("/", indexRouter);
+app.use("/user/signin", signinRouter);
+app.use("/user/signup", signupRouter);
+app.use("/user", userRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
