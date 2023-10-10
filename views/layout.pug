@@ -7,14 +7,14 @@ html
     if (user)
       nav(style="display:flex; justify-content:space-between;")
         h2
-          a(href=`/user` style="color:white;") Members
+          a(href=`/` style="color:white;") Members
         ul(style="display:flex; gap:15px; padding: 0;")
           button
-            a(href=`/user/${user._id}/join`) Join the Club 
+            a(href=`/join`) Join the Club 
           button
-            a(href='/user/admin') Become an Admin
+            a(href='/admin') Become an Admin
           button
-            a(href='/user/logout') Log out
+            a(href='/logout') Log out
       div(style="display:flex; flex-direction:column; padding:10px;")
         block content
     else
@@ -23,8 +23,8 @@ html
           a(href='/' style="color:white;") Members
         ul(style="display:flex; gap:15px; padding: 0;")
           button
-            a(href='/user/signin') Sign In
+            a(href='/signin') Sign In
           button
-            a(href='/user/signup') Sign Up
+            a(href='/signup') Sign Up
       div(style="display:flex; flex-direction:column; padding:10px;")
         block content

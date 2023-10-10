@@ -7,7 +7,7 @@ exports.signin_get = asyncHandler(async (req, res, next) => {
 
 exports.signin_post = [
   passport.authenticate("local", {
-    successRedirect: "/user",
-    failureRedirect: "/user/signin",
+    successRedirect: "/",
+    failureRedirect: "/signin",
   }),
 ];

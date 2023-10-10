@@ -9,7 +9,6 @@ const LocalStrategy = require("passport-local").Strategy;
 const logger = require("morgan");
 const mongoose = require("mongoose");
 const User = require("./models/user");
-const indexRouter = require("./routes/index");
 const signinRouter = require("./routes/signin");
 const signupRouter = require("./routes/signup");
 const logoutRouter = require("./routes/logout");
@@ -51,7 +50,6 @@ passport.use(
 );
 
 passport.serializeUser((user, done) => {
-  console.log(user);
   done(null, user.id);
 });
 passport.deserializeUser(async (id, done) => {
@@ -63,17 +61,21 @@ passport.deserializeUser(async (id, done) => {
   }
 });
 
+app.use((req, res, next) => {
+  res.locals.user = req.user;
+  next();
+});
+
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
-app.use("/", indexRouter);
-app.use("/user/signin", signinRouter);
-app.use("/user/signup", signupRouter);
-app.use("/user/logout", logoutRouter);
-app.use("/user", userRouter);
+app.use("/", userRouter);
+app.use("/signin", signinRouter);
+app.use("/signup", signupRouter);
+app.use("/logout", logoutRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

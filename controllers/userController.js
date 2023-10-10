@@ -1,16 +1,23 @@
 const User = require("../models/user");
+const UserMessage = require("../models/userMessage");
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 require("dotenv").config();
+
 const membership_password = process.env.MEMBERSHIP_PASSWORD;
+
 exports.index = asyncHandler(async (req, res, next) => {
+  const user = res.locals.user;
+  console.log({ user: user });
   res.render("user", {
-    title: "Welcome User",
-    user: req.user,
+    title: "Welcome",
+    user: user,
   });
 });
 exports.membership_authenticator_get = asyncHandler(async (req, res, next) => {
-  const user = await User.findById(req.params.id);
+  // const user = await User.findById(req.params.id);
+  const user = res.locals.user;
+  console.log({ locals: user });
   res.render("membership_form", {
     title: "Membership form",
     user: user,
@@ -52,5 +59,19 @@ exports.membership_authenticator_post = [
       );
       res.redirect(updatedUser.url);
     }
+  }),
+];
+
+exports.user_message = [
+  body("title", "Title must not be empty").trim().isLength({ min: 1 }).escape(),
+  body("text", "Text must not be empty").trim().isLength({ min: 1 }).escape(),
+  asyncHandler(async (req, res, next) => {
+    const errors = validationResult(req);
+    const message = new UserMessage({
+      title: req.body.title,
+      text: req.body.text,
+      timestamp: Date.now(),
+    });
+    console.log({ id: req.params.id });
   }),
 ];

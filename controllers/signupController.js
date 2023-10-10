@@ -5,10 +5,7 @@ const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 
 exports.signup_get = asyncHandler(async (req, res, next) => {
-  const user = await User.find().exec();
-  res.render("sign_up_form", {
-    user: user,
-  });
+  res.render("sign_up_form");
 });
 exports.signup_post = [
   body("firstName", "First name must not be empty")
@@ -62,7 +59,7 @@ exports.signup_post = [
         });
         try {
           await user.save();
-          res.redirect("/user");
+          res.redirect("/");
         } catch (err) {
           return next(err);
         }
