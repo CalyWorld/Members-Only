@@ -16,7 +16,6 @@ exports.index = asyncHandler(async (req, res, next) => {
       createdBy: req.user._id,
     }).exec();
   }
-  console.log({ user: user, userMessage: userMessages });
   res.render("user", {
     title: "Welcome",
     user: user,
@@ -91,7 +90,6 @@ exports.user_message_post = [
       await userMessage.save();
       res.redirect("/");
     }
-    console.log(userMessage);
   }),
 ];
 
@@ -139,7 +137,14 @@ exports.become_an_admin_post = [
 
 exports.user_message_delete_get = asyncHandler(async (req, res, next) => {
   const user = req.user;
+  const userMessage = await UserMessage.findById(req.params.id);
   res.render("delete_form", {
     user: user,
+    userMessage: userMessage,
   });
+});
+
+exports.user_message_delete_post = asyncHandler(async (req, res, next) => {
+  await UserMessage.findByIdAndRemove(req.body.usermessageid);
+  res.redirect("/");
 });

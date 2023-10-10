@@ -1,0 +1,28 @@
+extends layout
+
+block content
+  style.
+    .delete-container {
+      width: 500px;
+      margin: 0 auto;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    button.btn.btn-primary {
+      width: 20%;
+      padding: 10px;
+      background-color: #8B0000;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  .delete-container
+    p Are you sure you want to delete this message ? 
+    p= userMessage.title 
+    p= userMessage.text
+     form(method='POST' action='')
+      div.form-group
+        input#authorid.form-control(type='hidden',name='usermessageid', required="true" value=userMessage._id)
+      button.btn.btn-primary(type='submit' style="color:white") Delete

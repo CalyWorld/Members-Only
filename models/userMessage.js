@@ -8,6 +8,10 @@ const UserMessageSchema = new Schema({
   createdBy: { type: Schema.Types.ObjectId, ref: "User" },
 });
 
+UserMessageSchema.virtual("url").get(function () {
+  return `/${this._id}`;
+});
+
 UserMessageSchema.virtual("formattedTimestamp").get(function () {
   return DateTime.fromJSDate(this.timestamp).toFormat("yyyy LLLL d, t");
 });

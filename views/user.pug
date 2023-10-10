@@ -89,7 +89,7 @@ block content
                     div.user-delete-message-btn
                       div(style="display:flex; justify-content:center; margin-top:15px; margin-bottom:15px;")
                       button.btn.btn-secondary(type="submit")
-                        a(href='/usermessage/delete' style="color:white") Delete Message
+                        a(href=`${userMessage.url}/delete` style="color:white") Delete Message
     else 
       div(style="margin-bottom:10rem")
         h1(style="text-align:center;") Messages entered by Users can appear here
