@@ -8,19 +8,16 @@ const membership_password = process.env.MEMBERSHIP_PASSWORD;
 
 exports.index = asyncHandler(async (req, res, next) => {
   const user = res.locals.user;
-  console.log({ user: user });
   res.render("user", {
     title: "Welcome",
     user: user,
   });
 });
 exports.membership_authenticator_get = asyncHandler(async (req, res, next) => {
-  // const user = await User.findById(req.params.id);
   const user = res.locals.user;
   console.log({ locals: user });
   res.render("membership_form", {
     title: "Membership form",
-    user: user,
   });
 });
 exports.membership_authenticator_post = [
@@ -36,28 +33,23 @@ exports.membership_authenticator_post = [
     }),
   asyncHandler(async (req, res, next) => {
     const errors = validationResult(req);
-    const user = await User.findById(req.params.id);
+    const user = res.locals.user;
     const userDetails = new User({
       firstName: user.firstName,
       lastName: user.lastName,
       username: user.username,
       password: user.password,
       status: "Member",
-      _id: req.params.id,
+      _id: user._id,
     });
-    console.log({ id: req.params.id, user: user });
     if (!errors.isEmpty()) {
       res.render("membership_form", {
         title: "Membership form",
         errors: errors.array(),
       });
     } else {
-      const updatedUser = await User.findByIdAndUpdate(
-        req.params.id,
-        userDetails,
-        {},
-      );
-      res.redirect(updatedUser.url);
+      await User.findByIdAndUpdate(req.params.id, userDetails, {});
+      res.redirect("/");
     }
   }),
 ];
