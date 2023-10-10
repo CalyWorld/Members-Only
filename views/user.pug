@@ -5,62 +5,17 @@ block content
     .container {
       display: flex;
       flex-direction: column;
-      align-items: center;
+      gap: 10rem;
     }
-    .form-container {
-      width: 300px;
-      margin: 0 auto;
-      padding: 20px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    }
-    h1 {
-      font-size: 24px;
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    .form-group {
-      margin-bottom: 20px;
-    }
-    label {
-      font-weight: bold;
-      margin-bottom: 5px;
-    }
-    input.form-control {
-      margin-left: 10px;
-      width: 65%;
-      padding: 10px;
-      border: 1px solid #ddd;
-      border-radius: 5px;
-    }
-    button.btn.btn-primary {
-      width: 100%;
-      padding: 10px;
-      background-color: #0077cc;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
   .container
     if (user)
       div
-        h1= title
-        h1= "Only Users that are members should be able to see the author and date of each message"
-        h2= "Admin User Can see everything and also has the ability to delete messages."
+        h1= title + ' - ' + user.firstName
+        button.btn.btn-primary(type="button", style="margin-top: 10px;")
+          a(href='/usermessage') New Message
       div
+        h3 Only Users that are members should be able to see the author and date of each message
+        h3 Admin User Can see everything and also has the ability to delete messages
         p USER INFORMATION CONTAINED HERE 
-      .form-container
-        h1 Enter Message
-        form(action="/user" method="POST")
-          .form-group
-            label(for="title") Title:
-            input.form-control(type="text" id="title" name="title" placeholder="Enter title" required)
-          .form-group
-            label(for="text") Text:
-            input.form-control(type="text" id="text" name="text" placeholder="Enter text" required)
-          button.btn.btn-primary(type="submit") Submit
     else 
-      h1= "welcome to express"
+      h1 welcome to express

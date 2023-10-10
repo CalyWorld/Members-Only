@@ -7,17 +7,18 @@ require("dotenv").config();
 const membership_password = process.env.MEMBERSHIP_PASSWORD;
 
 exports.index = asyncHandler(async (req, res, next) => {
-  const user = res.locals.user;
+  const user = req.user;
   res.render("user", {
     title: "Welcome",
     user: user,
   });
 });
 exports.membership_authenticator_get = asyncHandler(async (req, res, next) => {
-  const user = res.locals.user;
+  const user = req.user;
   console.log({ locals: user });
   res.render("membership_form", {
     title: "Membership form",
+    user: user,
   });
 });
 exports.membership_authenticator_post = [
@@ -33,8 +34,8 @@ exports.membership_authenticator_post = [
     }),
   asyncHandler(async (req, res, next) => {
     const errors = validationResult(req);
-    const user = res.locals.user;
-    const userDetails = new User({
+    const user = req.user;
+    const userDetail = new User({
       firstName: user.firstName,
       lastName: user.lastName,
       username: user.username,
@@ -48,22 +49,37 @@ exports.membership_authenticator_post = [
         errors: errors.array(),
       });
     } else {
-      await User.findByIdAndUpdate(req.params.id, userDetails, {});
+      await User.findByIdAndUpdate(user._id, userDetail, {});
       res.redirect("/");
     }
   }),
 ];
-
-exports.user_message = [
+exports.user_message_get = asyncHandler(async (req, res, next) => {
+  res.render("message_form", {
+    user: req.user,
+  });
+});
+exports.user_message_post = [
   body("title", "Title must not be empty").trim().isLength({ min: 1 }).escape(),
   body("text", "Text must not be empty").trim().isLength({ min: 1 }).escape(),
   asyncHandler(async (req, res, next) => {
+    const user = req.user;
     const errors = validationResult(req);
-    const message = new UserMessage({
+    const userMessage = new UserMessage({
       title: req.body.title,
       text: req.body.text,
       timestamp: Date.now(),
+      createdBy: user._id,
     });
-    console.log({ id: req.params.id });
+    if (!errors.isEmpty()) {
+      res.render("message_form", {
+        user: user,
+        errors: errors.array(),
+      });
+    } else {
+      await userMessage.save();
+      res.redirect("/");
+    }
+    console.log(userMessage);
   }),
 ];
