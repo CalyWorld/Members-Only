@@ -7,10 +7,20 @@ require("dotenv").config();
 const membership_password = process.env.MEMBERSHIP_PASSWORD;
 
 exports.index = asyncHandler(async (req, res, next) => {
+  const allUserMessages = await UserMessage.find({}, "title text").exec();
   const user = req.user;
+  let userMessages;
+  if (user) {
+    userMessages = await UserMessage.find({
+      createdBy: req.user._id,
+    }).exec();
+  }
+  console.log({ user: user, userMessage: userMessages });
   res.render("user", {
     title: "Welcome",
     user: user,
+    userMessages: userMessages,
+    allUserMessages: allUserMessages,
   });
 });
 exports.membership_authenticator_get = asyncHandler(async (req, res, next) => {

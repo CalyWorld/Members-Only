@@ -7,15 +7,91 @@ block content
       flex-direction: column;
       gap: 10rem;
     }
+      
+    .container-messages{
+      margin: 0 auto;
+      padding: 20px;
+      width: 300px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+      
+    .usermessage-container{
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      gap: 5rem;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+      
+    .usermessage-details-container{
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+      
+    .usermessage-details-holding-container{
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+      
+    button.btn.btn-secondary{
+      width: 15%;
+      padding: 10px;
+      background-color: #8B0000;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .user-delete-message-btn{
+      display: flex;
+      justify-content: end;
+    }
+
   .container
-    if (user)
+    if (user && userMessages)
       div
         h1= title + ' - ' + user.firstName
         button.btn.btn-primary(type="button", style="margin-top: 10px;")
           a(href='/usermessage') New Message
-      div
-        h3 Only Users that are members should be able to see the author and date of each message
-        h3 Admin User Can see everything and also has the ability to delete messages
-        p USER INFORMATION CONTAINED HERE 
+        div
+          h3 Only Users that are Members should be able to see the Author and Date of each message.
+          h3 Admin User Can see everything and also has the ability to Delete messages.
+          h1 USER INFORMATION CONTAINED HERE.
+        div.usermessage-container
+          div
+            if (user.status === "Member" || user.status === "Admin")
+              p= "Name : " + user.firstName + " " + user.lastName
+            else
+              p= "Name : Not Available, Join the Club or Be an Admin"
+            p= "MemberShip Status" + " : " + user.status
+            div.usermessage-details-holding-container 
+              each userMessage in userMessages
+                div.usermessage-details-container 
+                  div
+                    p= "Title" + " : " + userMessage.title 
+                    p= "Text" + " : " + userMessage.text 
+                    if (user.status === "Member" || user.status === "Admin")
+                      p= "TimeStamp : " + userMessage.formattedTimestamp
+                    else
+                      p= "Time : Not Available, Join the Club or Be an Admin"
+                  if user.status === "Admin" 
+                    div.user-delete-message-btn
+                      div(style="display:flex; justify-content:center; margin-top:15px; margin-bottom:15px;")
+                      button.btn.btn-secondary(type="submit") Delete Message
     else 
-      h1 welcome to express
+      h1 Messages entered by Users can appear here
+      div.container-messages 
+        each userMessage in allUserMessages 
+          div 
+            p= userMessage.title 
+            p= userMessage.text
