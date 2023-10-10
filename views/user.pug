@@ -5,14 +5,15 @@ block content
     .container {
       display: flex;
       flex-direction: column;
-      gap: 10rem;
     }
       
     .container-messages{
+      display:flex;
+      flex-direction:column;
       margin: 0 auto;
       padding: 20px;
       width: 300px;
-      border: 1px solid #ddd;
+      gap:5rem;
       border-radius: 5px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
@@ -87,11 +88,17 @@ block content
                   if user.status === "Admin" 
                     div.user-delete-message-btn
                       div(style="display:flex; justify-content:center; margin-top:15px; margin-bottom:15px;")
-                      button.btn.btn-secondary(type="submit") Delete Message
+                      button.btn.btn-secondary(type="submit")
+                        a(href='/usermessage/delete' style="color:white") Delete Message
     else 
-      h1 Messages entered by Users can appear here
+      div(style="margin-bottom:10rem")
+        h1(style="text-align:center;") Messages entered by Users can appear here
+        h3(style="text-align:center;") Everybody can send messages 
+        h3(style="text-align:center;") Non users can only see Title and Contents, so sign in to see user details
+        h3(style="text-align:center;") Members can see Author and Date of each message when they have signed in and their status is a Member
+        h3(style="text-align:center;") Admin has total control, can see delete button and and can delete messages
       div.container-messages 
         each userMessage in allUserMessages 
-          div 
+          div(style="display:flex; flex-direction:column; border: 1px solid #ddd; padding:20px; border-radius: 5px;box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);") 
             p= userMessage.title 
             p= userMessage.text
