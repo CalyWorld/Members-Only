@@ -73,15 +73,14 @@ block content
           div(style="display:flex; flex-direction:column; gap:5px; border: 1px solid #ddd; padding:5px; border-radius: 5px;")
             p= "Title : " + userMessage.title
             p= "Text : " + userMessage.text
-          each user in allMessagesByUsers
-                div(style="display:flex; flex-direction:column; gap:5px; justify-content:space-between; border: 1px solid #ddd; padding:5px; border-radius: 5px;")  
-                  p= "CreatedBy : " + user.createdBy.status === "Member" || user.createdBy.status === "Admin" ? user.createdBy.firstName + " " + user.createdBy.lastName : "Not Available, Become a Member or an Admin to View"
-                  p= "TimeStamp : " + user.formattedTimestamp === "Member" || user.createdBy.status === "Admin" ? user.formattedTimestamp : "Not Available, Become a Member or an Admin to View"
-                  if (user.createdBy.status === "Admin")
+          div(style="display:flex; flex-direction:column; gap:5px; justify-content:space-between; border: 1px solid #ddd; padding:5px; border-radius: 5px;")  
+            p= "Created By : " + (user.status === "Member" || user.status === "Admin" ? userMessage.createdBy.firstName + " " + userMessage.createdBy.lastName : "Not Available, Become a Member or an Admin to View")
+            p= "Time stamp : " + (user.status === "Member" || user.status === "Admin" ? userMessage.formattedTimestamp : "Not Available, Become a Member or an Admin to View")
+            if (user.status === "Admin")
                     div.user-delete-message-btn
                       div(style="display:flex; justify-content:center; margin-top:15px; margin-bottom:15px;")
                         button.btn.btn-secondary(type="submit")
-                          a(href=`${user.url}/delete` style="color:white") Delete Message  
+                          a(href=`${userMessage.url}/delete` style="color:white") Delete Message
   else 
     div(style="margin-bottom:5rem")
       h1(style="text-align:center;") Messages entered by Users can appear here

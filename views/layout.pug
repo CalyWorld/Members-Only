@@ -6,7 +6,7 @@ html
   body
     if (user)
       nav(style="display:flex; justify-content:space-between;")
-        h2
+        h1
           a(href=`/` style="color:white;") Members
         ul(style="display:flex; gap:15px; padding: 0;")
           button
@@ -19,7 +19,7 @@ html
         block content
     else
       nav(style="display:flex; justify-content:space-between;")
-        h2
+        h1
           a(href='/' style="color:white;") Members
         ul(style="display:flex; gap:15px; padding: 0;")
           button

@@ -9,24 +9,13 @@ const admin_password = process.env.ADMIN_PASSWORD;
 
 exports.index = asyncHandler(async (req, res, next) => {
   const user = req.user;
-  const allUserMessages = await UserMessage.find({}, "title text").exec();
-  let allMessagesByUsers;
-  if (user) {
-    console.log(user._id);
-    allMessagesByUsers = await UserMessage.find({ createdBy: user._id })
-      .populate("createdBy")
-      .exec();
-    for (let i = 0; i < allMessagesByUsers.length; i++) {
-      console.log(allMessagesByUsers[0].createdBy);
-    }
-  }
-
-  console.log({ allMessagesByUsers: allMessagesByUsers });
+  const allUserMessages = await UserMessage.find({}, "title text timestamp")
+    .populate("createdBy")
+    .exec();
   res.render("user", {
     title: "Welcome",
     user: user,
     allUserMessages: allUserMessages,
-    allMessagesByUsers: allMessagesByUsers,
   });
 });
 exports.membership_authenticator_get = asyncHandler(async (req, res, next) => {
