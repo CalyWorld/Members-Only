@@ -12,7 +12,6 @@ block content
       flex-direction:column;
       margin: 0 auto;
       padding: 20px;
-      width: 300px;
       gap:5rem;
       border-radius: 5px;
       box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -44,7 +43,6 @@ block content
     }
       
     button.btn.btn-secondary{
-      width: 15%;
       padding: 10px;
       background-color: #8B0000;
       color: white;
@@ -57,48 +55,44 @@ block content
       display: flex;
       justify-content: end;
     }
-
   .container
-    if (user && userMessages)
-      div
-        h1= title + ' - ' + user.firstName
-        button.btn.btn-primary(type="button", style="margin-top: 10px;")
-          a(href='/usermessage') New Message
-        div
-          h3 Only Users that are Members should be able to see the Author and Date of each message.
-          h3 Admin User Can see everything and also has the ability to Delete messages.
-          h1 USER INFORMATION CONTAINED HERE.
-        div.usermessage-container
-          div
-            if (user.status === "Member" || user.status === "Admin")
-              p= "Name : " + user.firstName + " " + user.lastName
-            else
-              p= "Name : Not Available, Join the Club or Be an Admin"
-            p= "MemberShip Status" + " : " + user.status
-            div.usermessage-details-holding-container 
-              each userMessage in userMessages
-                div.usermessage-details-container 
-                  div
-                    p= "Title" + " : " + userMessage.title 
-                    p= "Text" + " : " + userMessage.text 
-                    if (user.status === "Member" || user.status === "Admin")
-                      p= "TimeStamp : " + userMessage.formattedTimestamp
-                    else
-                      p= "Time : Not Available, Join the Club or Be an Admin"
-                  if user.status === "Admin" 
+  if (user && allUserMessages)
+    div
+      h1= title + ' - ' + user.firstName
+      button.btn.btn-primary(type="button", style="margin-top: 10px;")
+        a(href='/usermessage') New Message
+    div(style="margin-bottom:5rem")
+      h1(style="text-align:center;") Messages entered by Users can appear here
+      h3(style="text-align:center;") Everybody can send messages 
+      h3(style="text-align:center;") Non-users can only see Title and Contents, so sign in to see user details
+      h3(style="text-align:center;") Members can see Author and Date of each message when they have signed in and their status is a Member
+      h3(style="text-align:center;") Admin has total control, can see delete button and can delete messages
+    div.container-messages 
+      each userMessage in allUserMessages
+        div(style="display:flex; flex-direction:row; justify-content:space-between; gap:10px; border: 1px solid #ddd; padding:20px; border-radius: 5px;")
+          div(style="display:flex; flex-direction:column; gap:5px; border: 1px solid #ddd; padding:5px; border-radius: 5px;")
+            p= "Title : " + userMessage.title
+            p= "Text : " + userMessage.text
+          each user in allMessagesByUsers
+                div(style="display:flex; flex-direction:column; gap:5px; justify-content:space-between; border: 1px solid #ddd; padding:5px; border-radius: 5px;")  
+                  p= "CreatedBy : " + user.createdBy.status === "Member" || user.createdBy.status === "Admin" ? user.createdBy.firstName + " " + user.createdBy.lastName : "Not Available, Become a Member or an Admin to View"
+                  p= "TimeStamp : " + user.formattedTimestamp === "Member" || user.createdBy.status === "Admin" ? user.formattedTimestamp : "Not Available, Become a Member or an Admin to View"
+                  if (user.createdBy.status === "Admin")
                     div.user-delete-message-btn
                       div(style="display:flex; justify-content:center; margin-top:15px; margin-bottom:15px;")
-                      button.btn.btn-secondary(type="submit")
-                        a(href=`${userMessage.url}/delete` style="color:white") Delete Message
-    else 
-      div(style="margin-bottom:10rem")
-        h1(style="text-align:center;") Messages entered by Users can appear here
-        h3(style="text-align:center;") Everybody can send messages 
-        h3(style="text-align:center;") Non users can only see Title and Contents, so sign in to see user details
-        h3(style="text-align:center;") Members can see Author and Date of each message when they have signed in and their status is a Member
-        h3(style="text-align:center;") Admin has total control, can see delete button and and can delete messages
-      div.container-messages 
-        each userMessage in allUserMessages 
-          div(style="display:flex; flex-direction:column; border: 1px solid #ddd; padding:20px; border-radius: 5px;box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);") 
-            p= userMessage.title 
-            p= userMessage.text
+                        button.btn.btn-secondary(type="submit")
+                          a(href=`${user.url}/delete` style="color:white") Delete Message  
+  else 
+    div(style="margin-bottom:5rem")
+      h1(style="text-align:center;") Messages entered by Users can appear here
+      h3(style="text-align:center;") Everybody can send messages 
+      h3(style="text-align:center;") Non-users can only see Title and Contents, so sign in to see user details
+      h3(style="text-align:center;") Members can see Author and Date of each message when they have signed in and their status is a Member
+      h3(style="text-align:center;") Admin has total control, can see delete button and can delete messages
+    div.container-messages 
+      each userMessage in allUserMessages 
+        div(style="display:flex; flex-direction:column; border: 1px solid #ddd; padding:20px; border-radius: 5px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1)") 
+          p= userMessage.title 
+          p= userMessage.text
+
+
