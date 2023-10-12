@@ -15,7 +15,6 @@ const logoutRouter = require("./routes/logout");
 const userRouter = require("./routes/user");
 const compression = require("compression");
 const helmet = require("helmet");
-const helmet = require("helmet");
 const app = express();
 
 // Set up rate limiter: maximum of twenty requests per minute
