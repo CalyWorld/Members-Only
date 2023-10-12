@@ -52,6 +52,7 @@ exports.membership_authenticator_post = [
       res.render("membership_form", {
         title: "Membership form",
         errors: errors.array(),
+        user: user,
       });
     } else {
       await User.findByIdAndUpdate(user._id, userDetail, {});
@@ -122,6 +123,7 @@ exports.become_an_admin_post = [
       res.render("membership_form", {
         title: "Membership form",
         errors: errors.array(),
+        user: user,
       });
     } else {
       await User.findByIdAndUpdate(user._id, userDetail, {});
