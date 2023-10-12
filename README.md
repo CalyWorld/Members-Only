@@ -21,7 +21,7 @@ List the key features of your project. Use bullet points for clarity.
 ```bash
 git clone the repo 
 npm install
-create an env file, include your mongoDB address, your Member password and Admin password in the env file so you can get to use more features
+create an env file, include your mongoDB address, your Member password and Admin password inside the env file so you can get to use more features
 create a gitignore file and include your env inside the gitignore file so you won't be exposing your env 
 npm run dev
 ```
